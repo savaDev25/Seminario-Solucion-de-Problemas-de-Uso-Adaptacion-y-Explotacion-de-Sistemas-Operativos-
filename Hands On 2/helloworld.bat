@@ -15,7 +15,7 @@ pause
 
 REM Cambiando al subdirectorio Test
 cd Test
-pause
+
 
 REM Listando el contenido del subdirectorio Test
 dir
