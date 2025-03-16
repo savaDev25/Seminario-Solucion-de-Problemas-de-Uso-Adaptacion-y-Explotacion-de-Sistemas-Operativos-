@@ -10,6 +10,7 @@ echo "Escritura completada"
 pause
 
 REM Imprimir el contenido de "mytext.txt"
+echo "mytxt.txt dice: "
 type mytext.txt
 pause
 
@@ -23,13 +24,14 @@ move mytext.txt backup
 
 REM Listando el contenido de backup
 dir backup
+pause
 
 REM Eliminar el archivo mytext.txt de backup
 del backup\mytext.txt
-echo "Eliminacion completa"
+echo "mytext.txt ha sido eliminado"
 pause
 
 REM Eliminar backup
 rmdir backup
-echo "Eliminacion comleta"
+echo "La carpeta backup ha sido eliminada"
 pause
