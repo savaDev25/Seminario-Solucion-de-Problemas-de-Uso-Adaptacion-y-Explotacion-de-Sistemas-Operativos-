@@ -10,6 +10,7 @@ pause
 
 REM Creando un subdirectorio "Test"
 mkdir Test
+echo "Carpeta creada"
 pause
 
 REM Cambiando al subdirectorio Test
