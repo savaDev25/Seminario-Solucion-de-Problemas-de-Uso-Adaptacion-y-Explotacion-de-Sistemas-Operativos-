@@ -12,7 +12,7 @@ echo "Se ha escrito en mytext"
 
 #Imprimiendo el contendio del archivo mytext
 echo "Contenido de mytext:"
-echo mytext
+cat mytext
 
 
 #Creando un fichero llamado "backup"
