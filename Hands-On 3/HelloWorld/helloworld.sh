@@ -17,5 +17,5 @@ echo "Ahora en Test"
 
 #Listar el contenido del fichero "Test"
 echo "Contenido de Test"
-ls Test -la
+ls -la
 
