@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#Variable para manejar el menu
-menu_option = 0
+# Variable para manejar el menú
+menu_option=0
 
-#Creando una funcion para listar el contenido de un fichero
-function list_content(){
-    echo "Introduce el nombre o la ubicacion del fichero a listar:"
+# Función para listar el contenido de un fichero
+function list_content() {
+    echo "Introduce el nombre o la ubicación del fichero a listar:"
     read folder_name
     if [ -d "$folder_name" ]; then
         ls "$folder_name"
@@ -14,8 +14,8 @@ function list_content(){
     fi
 }
 
-#Creando una funcion para crear un archivo de texto
-function create_text_file(){
+# Función para crear un archivo de texto
+function create_text_file() {
     echo "Introduce el nombre del archivo de texto a crear:"
     read file_name
     if [ -e "$file_name" ]; then
@@ -28,11 +28,12 @@ function create_text_file(){
         echo "El archivo ha sido creado y el texto ha sido escrito en él."
     fi
 }
-#Creando una funcion para comparar archivos
-function comparate_files(){
-    echo "Introduce el nombre del o ubicacion del primer archivo:"
+
+# Función para comparar archivos
+function comparate_files() {
+    echo "Introduce el nombre o ubicacion del primer archivo:"
     read file1
-    echo "Introduce el nombre del o ubicacion del segundo archivo:"
+    echo "Introduce el nombre o ubicacion del segundo archivo:"
     read file2
     if [ -f "$file1" ] && [ -f "$file2" ]; then
         diff "$file1" "$file2"
@@ -41,21 +42,21 @@ function comparate_files(){
     fi
 }
 
-#Creando funcion de cifrado cesar con awk
-function cypher_file(){
-    echo "Indtroduce el nombre o ubicacion del archivo a cifrar:"
+# Función de cifrado César con awk
+function cypher_file() {
+    echo "Introduce el nombre o ubicacion del archivo a cifrar:"
     read file
-    echo "Introduce el numero para realizar el desplazamiento:"
+    echo "Introduce el número para realizar el desplazamiento:"
     read number
-    if [-f "$file"]; then
-         # Procesa el archivo con awk
+    if [ -f "$file" ]; then
+        # Procesa el archivo con awk
         awk -v shift="$number" '
         {
             for (i = 1; i <= length($0); i++) {
                 char = substr($0, i, 1);
                 if (char ~ /[A-Za-z]/) {
-                    base = (char ~ /[A-Z]/) ? "A" : "a";
-                    printf "%c", ( ( (ord(char) - ord(base) + shift) % 26 ) + ord(base) );
+                    base = (char ~ /[A-Z]/) ? 65 : 97;
+                    printf "%c", ( ( (ord(char) - base + shift) % 26 ) + base );
                 } else {
                     printf "%c", char;
                 }
@@ -63,36 +64,26 @@ function cypher_file(){
             printf "\n";
         }
         function ord(c) {
-            return index("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", c);
+            return index("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", c) - 1;
         }' "$file" > "${file}_cifrado"
-        
-        echo "El archivo ha sido cifrado y se guardó como '${file}_cifrado'."
+
+        echo "El archivo ha sido cifrado y se guardo como '${file}_cifrado'."
     else
-        echo "El archivo no existe"
+        echo "El archivo no existe."
     fi
 }
 
+# Función para buscar scripts bash
 function find_bash_scripts() {
     echo "Introduce el directorio donde deseas buscar (por defecto '/'):"
     read directory
-
-    # Si no se especifica un directorio, se utiliza '/' como predeterminado
     directory=${directory:-"/"}
-
     echo "Buscando archivos que comienzan con '#!/bin/bash' en $directory..."
-    
-    # Realiza la búsqueda
     grep -rl "^#!/bin/bash" "$directory" 2>/dev/null
-
-    if [ $? -eq 0 ]; then
-        echo "Búsqueda completada."
-    else
-        echo "No se encontraron archivos o hubo un error durante la búsqueda."
-    fi
 }
 
-#Creando una funcion para el menu
-function menu(option_m){
+# Menú de opciones
+function menu() {
     case $1 in
         1)
             list_content
@@ -113,22 +104,20 @@ function menu(option_m){
             echo "Saliendo del programa..."
             ;;
         *)
-            echo "Opción no válida. Por favor selecciona otra opción."
+            echo "Opcion no valida. Por favor selecciona otra opcion."
             ;;
     esac
 }
 
-#Haciendo el menu persistente
-while [$menu_option != 6 ]
-do
-    #Mostrando el menu de opciones
+# Haciendo el menú persistente
+while [ "$menu_option" != 6 ]; do
     echo "Menu de opciones"
-    echo "\t 1.-Listar el contenido en un fichero"
-    echo "\t 2.-Crear un archivo de texto"
-    echo "\t 3.-Comparar dos archivos de texto"
-    echo "\t 4.-Cifrar archivo con Cesar (awk)"
-    echo "\t 5.-Buscar bash scripts en un directorio(grep)"
-    echo "\t 6.-Salir"
+    echo -e "\t 1.- Listar el contenido en un fichero"
+    echo -e "\t 2.- Crear un archivo de texto"
+    echo -e "\t 3.- Comparar dos archivos de texto"
+    echo -e "\t 4.- Cifrar archivo con Cesar (awk)"
+    echo -e "\t 5.- Buscar bash scripts en un directorio (grep)"
+    echo -e "\t 6.- Salir"
     read menu_option
-    menu($menu_option)
-done    
+    menu "$menu_option"
+done
