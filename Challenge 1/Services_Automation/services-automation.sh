@@ -30,9 +30,9 @@ function ask_data(){
 
     ram_mb=$((ram_capacity * 1024))
     hard_drive_mb=$((hard_drive_capacity * 1024))
-    hard_drive_path="$HOME/VirtualBox VMs/$machine_name/${machine_name}_disk.vdi"
+    hard_drive_path="$HOME/VirtualMachines/$machine_name/${machine_name}_disk.vdi"
 
-    mkdir -p "$HOME/VirtualBox VMs/$machine_name"
+    mkdir -p "$HOME/VirtualMachines/$machine_name"
     echo -e "\n\n"
 }
 
@@ -59,7 +59,7 @@ function create_and_configurate_vm(){
 function show_configuration(){
     echo -e "Configuracion final:\n"
     VBoxManage showvminfo "$machine_name" --machinereadable | grep -E 'name|ostype|memory|vram|cpus|storagecontroller|sata|ide|medium|nic1|bridgeadapter1'
-    echo -e "\nLa maquina virtual '$machine_name' ha sido creada y configurada\n"
+    echo -e "\nEl proceso para la '$machine_name' ha sido completado con exito"
 }
 
 ask_data
