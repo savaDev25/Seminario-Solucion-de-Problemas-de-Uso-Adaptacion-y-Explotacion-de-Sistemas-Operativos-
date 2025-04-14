@@ -2,7 +2,7 @@
 
 #Funcion para preguntarle al usuario los datos necesarios para la creacion de la base de datos
 function ask_data(){
-    echo "Creacion de una maquina virtual\n"
+    echo "Creacion de una maquina virtual"
     
     echo "Introduce el nombre de la maquina virtual"
     read machine_name
@@ -29,10 +29,11 @@ function ask_data(){
     read ide_name
 
     ram_mb=$((ram_capacity * 1024))
-    hard_drive_mb=$(hard_drive_capacity * 1024)
+    hard_drive_mb=$((hard_drive_capacity * 1024))
     hard_drive_path="$HOME/VirtualBox VMs/$machine_name/${machine_name}_disk.vdi"
 
     mkdir -p "$HOME/VirtualBox VMs/$machine_name"
+    echo -e "\n\n"
 }
 
 #Funcion para crear y configurar la maquina virtual
@@ -50,13 +51,15 @@ function create_and_configurate_vm(){
     VBoxManage storageattach "$machine_name" --storagectl "$sata_name" --port 0 --device 0 --type hdd --medium "$hard_drive_path"
     #Creando y configurando el controlador IDE
     VBoxManage storagectl "$machine_name" --name "$ide_name" --add ide 
+
+    echo -e "\n\n"
 }
 
 #Funcion para mostrar la configuracion final
 function show_configuration(){
-    echo "Configuracion final:\n"
+    echo -e "Configuracion final:\n"
     VBoxManage showvminfo "$machine_name" --machinereadable | grep -E 'name|ostype|memory|vram|cpus|storagecontroller|sata|ide|medium|nic1|bridgeadapter1'
-    echo -e "\n\nLa maquina virtual '$machine_name' ha sido creada y configurada con exito"
+    echo -e "\nLa maquina virtual '$machine_name' ha sido creada y configurada\n"
 }
 
 ask_data
